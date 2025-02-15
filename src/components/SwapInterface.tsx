@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Settings } from 'lucide-react';
+import { Settings, Info } from 'lucide-react';
 
 const SwapInterface = () => {
   const [maxSlippage, setMaxSlippage] = useState('Auto');
@@ -19,6 +19,29 @@ const SwapInterface = () => {
         <button className="hover:bg-gray-100 p-2 rounded-full transition-colors">
           <Settings className="w-5 h-5 text-gray-600" />
         </button>
+      </div>
+
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <span className="text-sm text-gray-600">Max slippage</span>
+          <button className="hover:bg-gray-100 rounded-full p-1 transition-colors">
+            <Info className="w-4 h-4 text-gray-400" />
+          </button>
+        </div>
+        <div className="flex items-center gap-2 text-sm">
+          <button 
+            className={`px-3 py-1 rounded-full ${maxSlippage === 'Auto' ? 'text-uniswap-pink bg-[#FAD7ED]' : 'text-gray-600 hover:bg-gray-100'}`}
+            onClick={() => setMaxSlippage('Auto')}
+          >
+            Auto
+          </button>
+          <button 
+            className={`px-3 py-1 rounded-full ${maxSlippage === '5.50%' ? 'text-uniswap-pink bg-[#FAD7ED]' : 'text-gray-600 hover:bg-gray-100'}`}
+            onClick={() => setMaxSlippage('5.50%')}
+          >
+            5.50%
+          </button>
+        </div>
       </div>
 
       <div className="space-y-2">

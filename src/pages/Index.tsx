@@ -5,6 +5,7 @@ import PriceChart from '../components/PriceChart';
 import SwapInterface from '../components/SwapInterface';
 import StatsSection from '../components/StatsSection';
 import TransactionsTable from '../components/TransactionsTable';
+import Links from '../components/Links';
 
 const Index = () => {
   const [selectedTimeframe, setSelectedTimeframe] = useState('1D');
@@ -21,6 +22,7 @@ const Index = () => {
           <div className="space-y-6">
             <SwapInterface />
             <StatsSection />
+            <Links />
           </div>
         </div>
       </main>
