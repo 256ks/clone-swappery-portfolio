@@ -1,9 +1,43 @@
 
 import { useState } from 'react';
 import { Settings, Info } from 'lucide-react';
+import { useToast } from "@/components/ui/use-toast";
 
 const SwapInterface = () => {
+  const { toast } = useToast();
   const [maxSlippage, setMaxSlippage] = useState('Auto');
+  const [sellAmount, setSellAmount] = useState('');
+  const [buyAmount, setBuyAmount] = useState('');
+
+  const handleSwap = () => {
+    if (!sellAmount || !buyAmount) {
+      toast({
+        variant: "destructive",
+        description: "Please enter both amounts",
+      });
+      return;
+    }
+    
+    toast({
+      description: "Swap initiated",
+    });
+  };
+
+  const calculateBuyAmount = (sellAmount: string) => {
+    // Mock conversion rate: 1 USDC = 0.0004 ETH
+    const numericAmount = parseFloat(sellAmount);
+    if (!isNaN(numericAmount)) {
+      setBuyAmount((numericAmount * 0.0004).toFixed(6));
+    } else {
+      setBuyAmount('');
+    }
+  };
+
+  const handleSellAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSellAmount(value);
+    calculateBuyAmount(value);
+  };
 
   return (
     <div className="bg-white rounded-2xl border p-4 space-y-4">
@@ -24,7 +58,10 @@ const SwapInterface = () => {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <span className="text-sm text-gray-600">Max slippage</span>
-          <button className="hover:bg-gray-100 rounded-full p-1 transition-colors">
+          <button 
+            className="hover:bg-gray-100 rounded-full p-1 transition-colors"
+            onClick={() => toast({ description: "Controls the maximum price movement you'll accept" })}
+          >
             <Info className="w-4 h-4 text-gray-400" />
           </button>
         </div>
@@ -51,7 +88,13 @@ const SwapInterface = () => {
             <span className="text-sm text-gray-600">Balance: 0 USDC</span>
           </div>
           <div className="flex items-center gap-2">
-            <input type="text" placeholder="0" className="bg-transparent text-2xl font-mono outline-none w-full" />
+            <input 
+              type="text" 
+              placeholder="0" 
+              value={sellAmount}
+              onChange={handleSellAmountChange}
+              className="bg-transparent text-2xl font-mono outline-none w-full" 
+            />
             <button className="flex items-center gap-2 bg-white rounded-full py-[8px] px-[12px]">
               <img alt="USDC" src="/lovable-uploads/fa9d275c-8577-4f1e-8c40-8e5a04766cc9.png" className="w-6 h-6" />
               <span className="px-[20px]">USDC</span>
@@ -65,7 +108,13 @@ const SwapInterface = () => {
             <span className="text-sm text-gray-600">Balance: 0 ETH</span>
           </div>
           <div className="flex items-center gap-2">
-            <input type="text" placeholder="0" className="bg-transparent text-2xl font-mono outline-none w-full" />
+            <input 
+              type="text" 
+              placeholder="0" 
+              value={buyAmount}
+              readOnly
+              className="bg-transparent text-2xl font-mono outline-none w-full" 
+            />
             <button className="flex items-center gap-2 bg-white py-2 rounded-full px-[12px]">
               <img alt="ETH" className="w-6 h-6" src="/lovable-uploads/60b7bd4f-6029-47f8-acf8-ed922c1a50d4.png" />
               <span className="py-0 mx-0 my-0 px-[20px]">ETH</span>
@@ -74,8 +123,16 @@ const SwapInterface = () => {
         </div>
       </div>
 
-      <button className="w-full py-4 text-center bg-[#F5F6FC] rounded-2xl text-[#BBBFCC]">
-        Enter an amount
+      <button 
+        onClick={handleSwap}
+        disabled={!sellAmount || !buyAmount}
+        className={`w-full py-4 text-center rounded-2xl transition-colors ${
+          sellAmount && buyAmount 
+            ? 'bg-uniswap-pink text-white hover:bg-opacity-90' 
+            : 'bg-[#F5F6FC] text-[#BBBFCC]'
+        }`}
+      >
+        {sellAmount && buyAmount ? 'Swap' : 'Enter an amount'}
       </button>
     </div>
   );
