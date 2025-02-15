@@ -85,7 +85,10 @@ const SwapInterface = () => {
         <div className="bg-uniswap-light-gray p-4 rounded-xl">
           <div className="flex justify-between mb-2">
             <span className="text-sm text-gray-600">Sell</span>
-            <span className="text-sm text-gray-600">Balance: 0 USDC</span>
+            <div className="flex items-center gap-1">
+              <span className="text-sm text-gray-600">Balance: 0 USDC</span>
+              <button className="text-sm text-gray-400 hover:text-gray-600">Max</button>
+            </div>
           </div>
           <div className="flex items-center gap-2">
             <input 
@@ -95,9 +98,15 @@ const SwapInterface = () => {
               onChange={handleSellAmountChange}
               className="bg-transparent text-2xl font-mono outline-none w-full" 
             />
-            <button className="flex items-center gap-2 bg-white rounded-full py-[8px] px-[12px]">
-              <img alt="USDC" src="/lovable-uploads/fa9d275c-8577-4f1e-8c40-8e5a04766cc9.png" className="w-6 h-6" />
-              <span className="px-[20px]">USDC</span>
+            <button className="flex items-center h-[40px] bg-white rounded-[20px] pr-4 hover:bg-gray-50 transition-colors">
+              <div className="flex items-center">
+                <img 
+                  alt="USDC" 
+                  src="/lovable-uploads/fa9d275c-8577-4f1e-8c40-8e5a04766cc9.png" 
+                  className="w-[32px] h-[32px] ml-1" 
+                />
+                <span className="ml-2 font-medium">USDC</span>
+              </div>
             </button>
           </div>
         </div>
@@ -115,9 +124,15 @@ const SwapInterface = () => {
               readOnly
               className="bg-transparent text-2xl font-mono outline-none w-full" 
             />
-            <button className="flex items-center gap-2 bg-white py-2 rounded-full px-[12px]">
-              <img alt="ETH" className="w-6 h-6" src="/lovable-uploads/60b7bd4f-6029-47f8-acf8-ed922c1a50d4.png" />
-              <span className="py-0 mx-0 my-0 px-[20px]">ETH</span>
+            <button className="flex items-center h-[40px] bg-white rounded-[20px] pr-4 hover:bg-gray-50 transition-colors">
+              <div className="flex items-center">
+                <img 
+                  alt="ETH" 
+                  src="/lovable-uploads/60b7bd4f-6029-47f8-acf8-ed922c1a50d4.png" 
+                  className="w-[32px] h-[32px] ml-1" 
+                />
+                <span className="ml-2 font-medium">ETH</span>
+              </div>
             </button>
           </div>
         </div>
