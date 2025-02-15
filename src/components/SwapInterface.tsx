@@ -1,8 +1,12 @@
+
 import { useState } from 'react';
 import { Settings } from 'lucide-react';
+
 const SwapInterface = () => {
   const [maxSlippage, setMaxSlippage] = useState('Auto');
-  return <div className="bg-white rounded-2xl border p-4 space-y-4">
+
+  return (
+    <div className="bg-white rounded-2xl border p-4 space-y-4">
       <div className="flex justify-between items-center">
         <div className="flex gap-2">
           <button className="px-4 py-2 text-sm bg-uniswap-pink text-white rounded-full hover:bg-opacity-90 transition-colors">
@@ -50,6 +54,8 @@ const SwapInterface = () => {
       <button className="w-full py-4 text-center bg-[#F5F6FC] rounded-2xl text-[#BBBFCC]">
         Enter an amount
       </button>
-    </div>;
+    </div>
+  );
 };
+
 export default SwapInterface;
