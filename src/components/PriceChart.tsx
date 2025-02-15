@@ -1,13 +1,15 @@
 
-import { useEffect, useRef } from 'react';
-import { Chart } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 
 const MOCK_DATA = Array.from({ length: 24 }, (_, i) => ({
   time: `${i}:00`,
   volume: Math.random() * 70,
 }));
 
-const PriceChart = ({ timeframe, onTimeframeChange }) => {
+const PriceChart = ({ timeframe, onTimeframeChange }: { 
+  timeframe: string;
+  onTimeframeChange: (timeframe: string) => void;
+}) => {
   const timeframes = ['1H', '1D', '1W', '1M', '1Y'];
 
   return (
@@ -34,16 +36,14 @@ const PriceChart = ({ timeframe, onTimeframeChange }) => {
         </div>
       </div>
       <div className="h-[300px] animate-chart-slide">
-        {/* Chart visualization would go here - using a placeholder for now */}
-        <div className="h-full flex items-end gap-1">
-          {MOCK_DATA.map((data, i) => (
-            <div
-              key={i}
-              style={{ height: `${data.volume}%` }}
-              className="flex-1 bg-uniswap-pink opacity-80 rounded-t"
-            />
-          ))}
-        </div>
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart data={MOCK_DATA}>
+            <XAxis dataKey="time" hide />
+            <YAxis hide />
+            <Tooltip />
+            <Bar dataKey="volume" fill="#FF007A" opacity={0.8} />
+          </BarChart>
+        </ResponsiveContainer>
       </div>
     </div>
   );
